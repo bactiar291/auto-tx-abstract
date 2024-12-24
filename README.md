@@ -1,10 +1,16 @@
 cara menjalankan nya di terminal secara simple, cukup salin perintah di bawah ini 
-instalasi semua paket yang di perlukan dengan perintah
+
+
+salin perintah ini :
+```bash
+git clone https://github.com/bactiar291/auto-tx-abstract.git
+```
+lalu instalasi semua paket yang di perlukan dengan perintah
 ```bash
 npm install
 ```
-
-dan jalankan dengan perintah 
+setelah semua paket sudah terinstal semua cukup
+jalankan dengan perintah 
 ```bash
 npm start
 ```
