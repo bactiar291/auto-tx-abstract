@@ -1,0 +1,13 @@
+{
+  "name": "auto-tx-abstarct",
+  "version": "1.0.0",
+  "description": "fitur auto send untuk random address pada testnet abstarct",
+  "main": "index.js",
+  "type": "module", 
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ethers": "^6.0.0"
+  }
+}
