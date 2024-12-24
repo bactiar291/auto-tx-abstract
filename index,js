@@ -1,54 +1,68 @@
 import { ethers } from "ethers";
 import readline from "readline";
+import chalk from "chalk";
+import figlet from "figlet";
 
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+figlet('bactiar 291', (err, data) => {
+  if (err) {
+    console.log('Error generating banner:', err);
+    return;
+  }
+ 
+  console.log(chalk.greenBright(data));
 
+  
+  console.log(chalk.yellowBright("\nPlease enter your private key below:\n"));
+  
+  
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
 
-rl.question('Please enter your private key: ', (privateKey) => {
-    
-    rl.close();
+  
+  rl.question('Private key: ', (privateKey) => {
+     
+      rl.close();
 
-   
-    const provider = new ethers.JsonRpcProvider('https://api.testnet.abs.xyz');
+     
+      const provider = new ethers.JsonRpcProvider('https://api.testnet.abs.xyz');
 
-    
-    const wallet = new ethers.Wallet(privateKey, provider);
+            const wallet = new ethers.Wallet(privateKey, provider);
 
-   
-    const generateRandomAddress = () => {
-        const randomWallet = ethers.Wallet.createRandom();
-        return randomWallet.address;
-    };
+      
+      const generateRandomAddress = () => {
+          const randomWallet = ethers.Wallet.createRandom();
+          return randomWallet.address;
+      };
 
-    
-    const sendTransaction = async () => {
-        const randomAddress = generateRandomAddress();
-        const tx = {
-            to: randomAddress,
-            value: ethers.parseUnits("0.000000001", "ether"),
-        };
+      
+      const sendTransaction = async () => {
+          const randomAddress = generateRandomAddress();
+          const tx = {
+              to: randomAddress,
+              value: ethers.parseUnits("0.000000001", "ether"),
+          };
 
-        try {
-            const transaction = await wallet.sendTransaction(tx);
-            console.log(`Transaction sent: ${transaction.hash}`);
-            await transaction.wait();
-            console.log(`Transaction confirmed: ${transaction.hash}`);
-        } catch (error) {
-            console.error("Error sending transaction:", error);
-        }
-    };
+          try {
+              const transaction = await wallet.sendTransaction(tx);
+              console.log(`Transaction sent: ${transaction.hash}`);
+              await transaction.wait();
+              console.log(`Transaction confirmed: ${transaction.hash}`);
+          } catch (error) {
+              console.error("Error sending transaction:", error);
+          }
+      };
 
-    
-    const autoSend = async () => {
-        while (true) {
-            await sendTransaction();
-        }
-    };
+     
+      const autoSend = async () => {
+          while (true) {
+              await sendTransaction();
+          }
+      };
 
-   
-    autoSend();
+      
+      autoSend();
+  });
 });
